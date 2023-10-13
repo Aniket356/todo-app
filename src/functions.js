@@ -1,6 +1,7 @@
 import ToDo from "./todo";
 
 export function addProject(projectsList, projectName) {
+    if(projectsList[projectName]) alert("Cannot have multiple projects with same name");
     projectsList[projectName] = [];
 }
 
