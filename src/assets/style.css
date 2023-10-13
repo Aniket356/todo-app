@@ -73,10 +73,6 @@ main {
     border-radius: 5px;
 }
 
-.sidebar li button:hover {
-    border: 1px solid black;
-}
-
 .sidebar li:hover {
     background-color: var(--secondary);
 }
@@ -122,7 +118,8 @@ main {
 .todos {
     width: 100%;
     padding: 2em;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .todo-div1, .todo-div2{
@@ -191,4 +188,31 @@ main {
 
 .add:active {
     transform: scale(0.95);
+}
+
+#add-todo-form {
+    font-size: 1rem;
+    border: 1px solid var(--accent);
+    border-radius: 5px;
+    padding: 1.2rem;
+    width: fit-content;
+}
+
+#add-todo-form .form-field {
+    margin-bottom: 0.5rem;
+}
+
+#add-todo-form .form-field input {
+    padding: 0.3rem;
+    border-radius: 5px;
+    border: 2px solid var(--primary);
+    outline: none;
+}
+
+#add-todo-form button[type="submit"]{
+    padding: 0.3rem;
+    background-color: var(--background);
+    border: 1px solid var(--primary);
+    cursor: pointer;
+    border-radius: 5px;
 }

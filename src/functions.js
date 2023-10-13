@@ -5,7 +5,11 @@ export function addProject(projectsList, projectName) {
     projectsList[projectName] = [];
 }
 
-export function addTodoToProject(title, projectName, projectsList) {
-    const newTodo = new ToDo(title, 'description', new Date(2023, 10, 1), 'priority', false);
+export function addTodoToProject(title, desc, dueDate,  projectName, projectsList) {
+    const newTodo = new ToDo(title, desc, dueDate, false, false);
     projectsList[projectName].push(newTodo);
+}
+
+export function deleteProject(projectsList, projectName){
+    delete projectsList[projectName];
 }
