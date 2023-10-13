@@ -11,15 +11,6 @@
     --secondary: #b6ede3;
     --accent: #2bab96;
 }
-  /* @media (prefers-color-scheme: dark) {
-    :root {
-      --text: #f3fcfb;
-      --background: #030c0a;
-      --primary: #5cd6c2;
-      --secondary: #12493f;
-      --accent: #54d4bf;
-    }
-  } */
   
 ul {
     list-style-type: none;
@@ -32,15 +23,13 @@ body {
 }
 
 .top-bar {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--secondary);
-    padding: 1rem;
     font-size: 1.5rem;
     color: var(--text);
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 4em;
+    border-bottom: 2px solid var(--primary);
 }
 
 main {
@@ -48,19 +37,16 @@ main {
 }
 
 .sidebar {
-    /* background-color: var(--primary); */
     padding: 2rem;
     flex-basis: calc(100vw/4);
-    text-align: center;
 }
 
 .sidebar ul {
     position: sticky;
     top: 2em;
-    height: fit-content;
 }
 
-.sidebar p {
+.sidebar ul > p {
     font-weight: bold;
     font-size: 2rem;
     margin-bottom: 0.6rem;
@@ -68,48 +54,112 @@ main {
 
 .sidebar li {
     margin-bottom: 0.6rem;
-    background-color: var(--secondary);
     padding: 0.2rem 0.8rem;
-    font-weight: bold;
-    border: 3px solid var(--accent);
-    font-size: 1.3rem;
+    border: 1px solid var(--accent);
+    font-size: 1.1rem;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform ease 0.3s;
+    transition: transform ease 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar li button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
+
+.sidebar li button:hover {
+    border: 1px solid black;
+}
+
+.sidebar li:hover {
+    background-color: var(--secondary);
 }
 
 .sidebar li:active {
     transform: scale(0.95);
 }
 
+#new-project-form #project-name{
+    padding: 0.2rem;
+    margin-bottom: 0.3rem;
+    border: 2px solid var(--accent);
+    outline: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+#new-project-form button {
+    display: block;
+    background-color: var(--background);
+    font-weight: bold;
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#new-project-form button:hover {
+    background-color: var(--secondary);
+}
+
+.project-header {
+    font-size: 1.3rem;
+    padding: 1rem;
+    width: 100%;
+    background-color: var(--secondary);
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+    text-align: left;
+    border-radius: 5px;
+}
+
 .todos {
     width: 100%;
-    padding: 2.5rem;
+    padding: 2em;
     text-align: center;
+}
+
+.todo-div1, .todo-div2{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }
 
 .todos .todo {
     display: flex;
     justify-content: space-between;
-    background-color: var(--secondary);
     padding: 1rem;
-    font-size: 1.2rem;
-    font-weight: bold;
     margin-bottom: 0.6rem;
-    border: 4px solid var(--accent);
-    border-radius: 15px;
+    border: 1px solid var(--accent);
+    border-radius: 5px;
     min-width: 400px;
 }
 
-.todo button.del {
-    padding: 0.2rem 0.5rem;
+.todo .title {
     font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.todo .description {
+    font-size: 0.9rem;
+}
+
+
+.todo button.del {
+    padding: 0.4rem;
     background-color: lightcoral;
     border: 3px solid black;
-    color: white;
-    font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .todo button.del:active {
@@ -123,17 +173,20 @@ main {
 }
 
 .add {
-    height: 3rem;
-    width: 3rem;
-    background-color: var(--secondary);
-    border-radius: 5px;
-    border: 5px solid var(--accent);
-    font-size: 1.9rem;
-    font-weight: bold;
+    height: 2.5rem;
+    width: fit-content;
+    padding: 0.5rem 0.5rem;
+    border-radius: 3px;
+    border: 1px solid var(--accent);
+    background-color: var(--background);
+    font-size: 1rem;
     color: var(--text);
     cursor: pointer;
     margin-bottom: 0.6rem;
-    
+}
+
+.add:hover {
+    background-color: var(--secondary);
 }
 
 .add:active {

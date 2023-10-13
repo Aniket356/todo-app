@@ -9,7 +9,5 @@ let projects = {
     work: []
 };
 
-console.table(projects);
-
 renderSidebar(projects);
 renderAllTodos(projects);
