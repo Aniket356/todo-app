@@ -6,7 +6,7 @@
 
 :root {
     --text: #030c0b;
-    --background: #f3fcfa;
+    --background: #ececec;
     --primary: #29a38f;
     --secondary: #b6ede3;
     --accent: #2bab96;
@@ -69,8 +69,12 @@ main {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    padding: 0.3rem;
     border-radius: 5px;
+    padding: 0.2rem;
+}
+
+.sidebar li button:hover {
+    background-color: var(--primary);
 }
 
 .sidebar li:hover {
@@ -145,6 +149,27 @@ main {
 
 .todo .description {
     font-size: 0.9rem;
+}
+
+.todo button.mark-imp-btn {
+    padding: 0.5em 0.3em;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 3px solid black;
+    font-weight: bold;
+    width: 4.5rem;
+}
+
+.todo button.mark-imp-btn:active{
+    transform: scale(0.96);
+}
+
+.todo button.not-important {
+    background-color: var(--secondary);
+}
+
+.todo button.important {
+    background-color:crimson;
 }
 
 

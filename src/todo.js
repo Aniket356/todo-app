@@ -1,9 +1,9 @@
-function ToDo(title, description, dueDate, priority, completed){
+function ToDo(title, description, dueDate, isImportant, completed){
     return {
         title,
         description,
         dueDate,
-        priority,
+        isImportant,
         completed,
     };
 }
