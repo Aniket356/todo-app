@@ -1,5 +1,7 @@
 import { changeImportance, deleteProject, toggleCompleted, deleteToDo, getFormattedDate } from "./functions";
 import { addNewProjectForm, addNewToDoForm } from "./render-forms";
+import parseJSON from 'date-fns/parseJSON';
+import format from 'date-fns/format';
 
 export function renderSidebar(projectsList) {
     const sidebar = document.querySelector('.sidebar');
@@ -107,9 +109,9 @@ export function renderAllTodos(projectsList) {
     header.classList.add('project-header');
     todosDiv.appendChild(header);
 
-    for(const project in projectsList){
+    for(let project in projectsList){
         projectsList[project].forEach(todo => {
-            appendToDo(todo, projectsList[project], projectsList, todosList, true);
+            appendToDo(todo, project, projectsList, todosList, true);
         })
     }
 
@@ -129,7 +131,7 @@ function appendToDo(todo, project, projectsList, todosList, renderAll) {
     completedCheckbox.classList.add('completed');
 
     completedCheckbox.addEventListener('click', () => {
-        toggleCompleted(todo, completedCheckbox.checked);
+        toggleCompleted(todo, completedCheckbox.checked, projectsList);
     })
 
     div1.appendChild(completedCheckbox);
@@ -151,7 +153,12 @@ function appendToDo(todo, project, projectsList, todosList, renderAll) {
 
     const dueDateP = document.createElement('p');
     dueDateP.classList.add('due-date');
-    dueDateP.textContent = isNaN(todo.dueDate) ? "no due date" : getFormattedDate(todo.dueDate);
+    if(todo.dueDate !== "null"){
+        dueDateP.textContent = format(parseJSON(todo.dueDate), 'dd/MM/yy');
+    }
+    else{
+        dueDateP.textContent = "no due date"
+    }
     div2.appendChild(dueDateP);
 
     const markImpBtn = document.createElement('button');
@@ -160,7 +167,7 @@ function appendToDo(todo, project, projectsList, todosList, renderAll) {
     markImpBtn.textContent = todo.isImportant === true ? "IMP" : "NOT IMP";
 
     markImpBtn.addEventListener('click', () => {
-        changeImportance(todo);
+        changeImportance(todo, projectsList);
         markImpBtn.classList.remove('important');
         markImpBtn.classList.remove('not-important');
         markImpBtn.classList.add(`${todo.isImportant === true ? "important" : "not-important"}`);
@@ -176,7 +183,7 @@ function appendToDo(todo, project, projectsList, todosList, renderAll) {
                         </svg>`;
 
     delButton.addEventListener('click', () => {
-        deleteToDo(todo, projectsList[project]);
+        deleteToDo(todo, projectsList[project], projectsList);
         if(renderAll) renderAllTodos(projectsList);
         else renderToDos(projectsList, project);
     })
