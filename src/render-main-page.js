@@ -1,8 +1,7 @@
 import { changeImportance, deleteProject, toggleCompleted, deleteToDo, getFormattedDate } from "./functions";
 import { addNewProjectForm, addNewToDoForm } from "./render-forms";
-import ToDo from "./todo";
 
-export function renderSidebar(projects) {
+export function renderSidebar(projectsList) {
     const sidebar = document.querySelector('.sidebar');
     sidebar.innerHTML = '';
 
@@ -13,7 +12,7 @@ export function renderSidebar(projects) {
     all.addEventListener('click', () => {
         const todosDiv = document.querySelector('.todos');
         todosDiv.innerHTML = '';
-        renderAllTodos(projects);
+        renderAllTodos(projectsList);
     })
     sidebarList.appendChild(all);
 
@@ -21,9 +20,9 @@ export function renderSidebar(projects) {
     p.textContent = 'Projects:';
     sidebarList.appendChild(p);
 
-    const projectsList = document.createElement('ul');
+    const projectsUL = document.createElement('ul');
 
-    Object.keys(projects).forEach(project => {
+    Object.keys(projectsList).forEach(project => {
         const li = document.createElement('li');
 
         const projectTitle = document.createElement('p');
@@ -32,9 +31,7 @@ export function renderSidebar(projects) {
         li.appendChild(projectTitle);
 
         li.addEventListener('click', () => {
-            const todosDiv = document.querySelector('.todos');
-            todosDiv.innerHTML = '';
-            renderToDos(projects, project);
+            renderToDos(projectsList, project);
         })
 
         const delBtn = document.createElement('button');
@@ -44,13 +41,13 @@ export function renderSidebar(projects) {
         delBtn.classList.add('delete-project');
         delBtn.addEventListener('click', (event) => {
             event.stopPropagation();
-            deleteProject(projects, project);
-            renderSidebar(projects);
-            renderAllTodos(projects);
+            deleteProject(projectsList, project);
+            renderSidebar(projectsList);
+            renderAllTodos(projectsList);
         })
         li.appendChild(delBtn);
 
-        projectsList.appendChild(li);
+        projectsUL.appendChild(li);
     })
 
     const btn = document.createElement('button');
@@ -58,13 +55,13 @@ export function renderSidebar(projects) {
     btn.setAttribute('id', 'add-project');
     btn.addEventListener('click', () => {
         btn.style.display = 'none';
-        sidebar.appendChild(addNewProjectForm(projects));
+        sidebar.appendChild(addNewProjectForm(projectsList));
         const input = sidebar.querySelector('#project-name');
         input.focus();
     });
     btn.textContent = '+ Add Project';
 
-    sidebarList.appendChild(projectsList);
+    sidebarList.appendChild(projectsUL);
     sidebar.appendChild(sidebarList);
     sidebar.appendChild(btn);
 }
@@ -78,10 +75,11 @@ export function renderToDos(projectsList, project){
     header.classList.add('project-header');
     todosDiv.appendChild(header);
 
-    const todosList = document.createElement('ul');     
+    const todosList = document.createElement('ul');   
+
 
     projectsList[project].forEach(todo => {
-        appendToDo(todo, projectsList[project], projectsList, todosList, false);
+        appendToDo(todo, project, projectsList, todosList, false);
     })
     todosDiv.appendChild(todosList);
 
@@ -178,7 +176,7 @@ function appendToDo(todo, project, projectsList, todosList, renderAll) {
                         </svg>`;
 
     delButton.addEventListener('click', () => {
-        deleteToDo(todo, project);
+        deleteToDo(todo, projectsList[project]);
         if(renderAll) renderAllTodos(projectsList);
         else renderToDos(projectsList, project);
     })
